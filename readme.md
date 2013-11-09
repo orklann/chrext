@@ -2,11 +2,11 @@
 
 ## Install
 
-```npm install -g chrext```
+    npm install -g chrext
 
-```mkdir demo && cd demo```
+    mkdir demo && cd demo
 
-```chrext```
+    chrext
 
 ## License
 (The MIT License)
