@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var readline = require('readline');
+
+var destination = ".";
+
+var processing = function(){
+  var files = fs.readdirSync(__dirname + "/../resources/");
+  files.forEach(function(file){
+    if (file === ".DS_Store") {
+      return ;
+    }
+    fs.writeFileSync(destination + "/" + file, fs.readFileSync(__dirname + "/../resources/" + file));
+  });
+}
+
+processing();
+
+console.log("Completed.");
