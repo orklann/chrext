@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var fs = require('fs');
-var readline = require('readline');
+var prompt = require("prompt");
 
 var destination = ".";
 
@@ -15,6 +15,32 @@ var processing = function(){
   });
 }
 
+prompt.message = "Extension";
+prompt.delimiter = ":";
+
 processing();
 
-console.log("Completed.");
+prompt.start();
+
+prompt.get(["Name", "Version", "Description"], function(err, result){
+  var name = result.Name;
+  var version = result.Version;
+  var description = result.Description;
+
+  setup(name, version, description);
+  console.log("Completed.");
+});
+
+
+var setup = function(name, version, description){
+  var configFile = __dirname + "/../resources/manifest.json";
+  var jf = require('jsonfile');
+  var config = require(configFile);
+  config.name = name;
+  config.version = version;
+  config.description = description;
+  config.browser_action.default_title = name;
+
+  jf.writeFileSync("./manifest.json", config);
+}
+
